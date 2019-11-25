@@ -1,2 +1,2 @@
-# wswebarc-fe
-Frontend Part of the Web-Architecture Workshop
+# hec-frontend
+Frontend for the HomeEco charging integration
