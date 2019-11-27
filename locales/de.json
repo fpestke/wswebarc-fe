@@ -1,5 +1,12 @@
 {
     "Welcome": "Willkommen bei Ladewart",
+    "carList": "Liste zu ladender Autos",
+    "carsEmpty": "Es wurden keine Autos zum Laden gefunden.",
     "stopCharging" : "Laden beenden",
-    "startCharging" : "Laden starten"
+    "startCharging" : "Laden starten",
+    "carsLoading" : "Lade Autos ...",
+    "carId" : "Id",
+    "carName" : "Name",
+    "carVin" : "Fahrgestellnr.",
+    "chargeAction" : "Ladeaktion"
 }

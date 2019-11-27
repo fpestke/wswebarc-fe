@@ -1,7 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-
+const { CleanWebpackPlugin }  = require('clean-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -15,15 +15,6 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '*.json']
   },
-  devServer: {
-    contentBase: path.join(__dirname, '../dist/'),
-    port: 2222,
-    host: '0.0.0.0',
-    allowedHosts: [
-      '192.168.168.*'
-    ]
-  },
-  devtool: 'inline-source-map',
   module: {
     rules: [
       { test: /.tsx?$/, use: ['awesome-typescript-loader'] },
@@ -40,11 +31,12 @@ module.exports = {
   },
   plugins: [
     new CopyWebpackPlugin([{ from: "locales/**/*" }]),
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './src/index.html',
       filename: 'index.html',
       showErrors: true,
-      title: 'HomeEcoChargerExtension App',
+      title: 'ev-frontend app',
       path: path.join(__dirname, '../dist/'),
       hash: true
     })

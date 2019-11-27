@@ -5,7 +5,7 @@ import ChargerState from '../model/ChargerState';
 import { withTranslation, WithTranslation } from'react-i18next';
 
 interface Props extends WithTranslation {
-    chargerId: number
+    chargerId: string
 }
 
 class ChargerToggleInner extends React.Component<Props, {}> {
@@ -15,12 +15,15 @@ class ChargerToggleInner extends React.Component<Props, {}> {
 
     constructor(props: Props, context: any) {
         super(props, context);
-        this.init();
     }
 
     state = {
         active: false
     };
+
+    componentDidMount(): void {
+        this.init();
+    }
 
     private init() {
         this.isActive().then(isActive => this.setState({ active: isActive }));

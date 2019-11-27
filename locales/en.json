@@ -1,6 +1,12 @@
 {
     "Welcome": "Welcome to charging assistant",
+    "carList": "List of chargeable vehicles",
+    "carsEmpty": "No vehicles found.",
     "stopCharging" : "stop charging",
-    "startCharging" : "start charging"
-
+    "startCharging" : "start charging",
+    "carsLoading" : "Loading Vehicles ...",
+   "carId" : "Id",
+    "carName" : "Name",
+    "carVin" : "VIN",
+    "chargeAction" : "Charge action"
 }
