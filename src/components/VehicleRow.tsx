@@ -4,7 +4,7 @@ import { Vehicle } from '../ev-client';
 import ChargerToggle from './ChargerToggle';
 
 interface Props extends WithTranslation {
-    vehicle: Vehicle;
+    cars: Vehicle;
 }
 
 class VehicleRowInner extends React.Component<Props, {}> {
@@ -14,13 +14,13 @@ class VehicleRowInner extends React.Component<Props, {}> {
     }
 
     render() {
-        const { vehicle_id, display_name, vin } = this.props.vehicle;
+        const { vehicle_id, display_name, vin } = this.props.cars;
         return (
                     <tr>
                         <td>{ vehicle_id }</td>
                         <td>{ display_name }</td>
                         <td>{ vin }</td>
-                        <td><ChargerToggle chargerId={ vehicle_id  }/></td>
+                        <td><ChargerToggle vehicleId={ vehicle_id  }/></td>
                     </tr>
         );
     }

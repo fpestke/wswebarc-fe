@@ -37,6 +37,8 @@ yarn start
 ```shell script
     docker tag ws-crs/ev-frontend gcr.io/elite-droplet-256314/ws-crs/ev-frontend
     docker push gcr.io/elite-droplet-256314/ws-crs/ev-frontend
-    kubectl expose deployment ev-frontend --type=NodePort --name=ev-backend-service --port=80
+    kubectl apply -f k8s.ev-frontend.deployment.yaml
+    # Trick: kubectl patch deployment ev-frontend -p "{\"spec\": {\"template\": {\"metadata\": { \"labels\": {  \"redeploy\": \"$(date +%s)\"}}}}}"
+    kubectl apply -f k8s.ev-frontend-service.service.yaml
 ```
 Als letztes den Ingres-Controller überarbeiten.

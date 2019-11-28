@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: ev-frontend
+  name: ev-frontend
+spec:
+  progressDeadlineSeconds: 2147483647
+  replicas: 1
+  revisionHistoryLimit: 2147483647
+  selector:
+    matchLabels:
+      run: ev-frontend
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        redeploy: "1574861071"
+        run: ev-frontend
+    spec:
+      containers:
+        - image: gcr.io/elite-droplet-256314/ws-crs/ev-frontend:latest
+          imagePullPolicy: Always
+          name: ev-frontend
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30

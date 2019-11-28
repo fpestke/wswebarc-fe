@@ -17,7 +17,7 @@ import * as url from "url";
 import * as portableFetch from "portable-fetch";
 import { Configuration } from "./configuration";
 
-const BASE_PATH = "http://ev-backend.charging-attendant.com".replace(/\/+$/, "");
+const BASE_PATH = "https://ev-backend.charging-attendant.com".replace(/\/+$/, "");
 
 /**
  *

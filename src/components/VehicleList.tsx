@@ -1,7 +1,7 @@
 import React from 'react';
 import { withTranslation, WithTranslation } from'react-i18next';
 import { VehiclesApiFp, Vehicle } from '../ev-client';
-import VehicleRow from './VehicleRow';
+import VehicleRowFrank from './VehicleRow';
 import { Spinner } from 'reactstrap';
 
 interface Props extends WithTranslation {
@@ -42,7 +42,7 @@ class VehicleListInner extends React.Component<Props, {}> {
         if (this.state.vehicles.length === 0) {
             return <div className="text-info">{t('carsEmpty')}</div>;
         }
-        const rows = this.state.vehicles.map(car => <VehicleRow vehicle={car}/>);
+        const rows = this.state.vehicles.map(car => <VehicleRowFrank cars={car}/>);
         return (
             <div className="table-responsive">
                 <table className="table">

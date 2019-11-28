@@ -1,17 +1,13 @@
 import React from 'react';
-import { Button, ButtonGroup } from 'reactstrap';
-import { plainToClass } from 'class-transformer';
-import ChargerState from '../model/ChargerState';
-import { withTranslation, WithTranslation } from'react-i18next';
+import {Button, ButtonGroup} from 'reactstrap';
+import {withTranslation, WithTranslation} from 'react-i18next';
+import {OperationsApiFp, StateApiFp} from "../ev-client";
 
 interface Props extends WithTranslation {
-    chargerId: string
+    vehicleId: string
 }
 
 class ChargerToggleInner extends React.Component<Props, {}> {
-
-    private chargerStateUrl  = `http://192.168.168.206:3000/chargers/${this.props.chargerId}`;
-    private chargerToggleUrl = `${this.chargerStateUrl}/toggle`;
 
     constructor(props: Props, context: any) {
         super(props, context);
@@ -26,16 +22,16 @@ class ChargerToggleInner extends React.Component<Props, {}> {
     }
 
     private init() {
-        this.isActive().then(isActive => this.setState({ active: isActive }));
+        this.isActive(this.props.vehicleId);
     }
 
-    async isActive(): Promise<boolean> {
-        return fetch(this.chargerStateUrl)
-            .then(response => response.json())
-            .then(state => {
-                const result = plainToClass(ChargerState, state).active;
-                return result;
-            })
+    isActive(vehicleId: string): Promise<boolean> {
+        return StateApiFp(null).chargeState(vehicleId, {
+                headers: {
+                    Accept: 'application/json'
+                }
+            })()
+            .then(response => this.setState({ state: response.response.chargingState!== 'Complete' }))
             .catch(err => {
                 console.log(err);
                 return null;
@@ -43,16 +39,29 @@ class ChargerToggleInner extends React.Component<Props, {}> {
     }
 
     toggleGpio() : void {
-        fetch(this.chargerToggleUrl, {
-            method: 'POST'
-        })
-            .then(response => response.json())
-            .then(state => {
-                const newState = plainToClass(ChargerState, state).active;
-                this.setState({
-                    active: newState
-                });
-            })
+
+
+        this.isActive(this.props.vehicleId)
+        this.state.active ? this.stopCharging(this.props.vehicleId) : this.startCharging(this.props.vehicleId);
+    }
+
+    startCharging(vehicleId: string){
+        OperationsApiFp(null).chargeStart(vehicleId, {
+            headers: {
+                Accept: 'application/json'
+            }
+        })()
+            .then(() => this.isActive(vehicleId))
+            .catch(err => console.log(err));
+    }
+
+    stopCharging(vehicleId: string){
+        OperationsApiFp(null).chargeStop(vehicleId, {
+            headers: {
+                Accept: 'application/json'
+            }
+        })()
+            .then(() => this.isActive(vehicleId))
             .catch(err => console.log(err));
     }
 
