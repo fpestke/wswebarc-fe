@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.3.1",
-    "class-transformer": "^0.2.3",
+    "class-transformer": "^0.3.1",
     "class-validator": "^0.10.2",
     "i18next": "^19.0.0",
     "i18next-browser-languagedetector": "^4.0.1",
